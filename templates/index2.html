@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function()
+        {
+           $("#but1").click(function()
+           {
+              $(".rb").show();
+              $(".rb").attr("disabled",true);
+           });
+        });
+        function getAnswers()
+        {
+            document.getElementById("UserAnswers").innerHTML="";
+            var e = document.getElementsByTagName("input");
+            for(i = 0; i< e.length;i++)
+            {
+               if(e[i].type  == "radio")
+               {
+                  if(e[i].checked)
+                  {
+                    document.getElementById("UserAnswers").innerHTML+= "Q"+ e[i].name+ "The answers You are selected :" + e[i].value + "<br/>";
+                  }
+               }
+            }
+        };
+       
+
+    </script>
+</head>
+<body>
+    
+    <center>
+        <h1>Trivia App</h1>
+        <h1> quizz aplliacation using django.</h1>
+        <hr/>
+    </center>
+    <div style ="padding-left: 30px;">
+        {% for result in Exam %}
+        <table>
+            <tr>
+                <td>
+                    {{result.id}} ) {{result.question}}?
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type = "radio" id = "option1" class ="rb"  name="{{result.id}}" value= "{{result.option1}}">{{result.option1}}
+
+                </td>
+            </tr>
+            <tr>
+                <td><input type = "radio" id = "option2" class ="rb"  name="{{result.id}}" value= "{{result.option2}}">{{result.option2}}</td>
+            </tr>
+            <tr>
+                <td><input type = "radio" id = "option3" class ="rb" name="{{result.id}}" value= "{{result.option3}}">{{result.option3}}</td>
+            </tr>
+            <tr>
+                <td><input type = "radio" id = "option4" class ="rb"  name="{{result.id}}" value= "{{result.option4}}">{{result.option4}}</td>
+            </tr>
+            <tr>
+                <td><label id = "corans" class ="rb" style = "display:none; color:green"><b>{{result.corrans}}</b></label></td>
+            </tr>
+            <hr/>
+        </table>
+        {% endfor %}
+        <hr/>
+        <input type = "submit" value = "summary" id = "but1" onclick = "getAnswers()"/>
+        <hr/>
+        <b id = "UserAnswers"  ></b>
+        
+      
+      
+    </div>
+</body>
+</html>
